@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta name="description" content="Adhan Master - Islamic Prayer Times Application with accurate calculations and beautiful interface">
+    <meta name="theme-color" content="#43a047">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Adhan Master">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>Adhan Master - Islamic Prayer Times</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
+    <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="./manifest.json">
+</head>
+<body>
+    <div class="pattern-bg"></div>
+    
+    <header class="app-header">
+        <div class="header-left">
+            <h1 class="app-title">Adhan Master</h1>
+            <div id="location-info" class="location-info loading">
+                <span id="location-coords">Loading location...</span>
+                <button id="refresh-location" title="Refresh location">🔄</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="islamic-date">
+                <div class="islamic-date-details">
+                    <div class="islamic-date-primary">
+                        <span id="islamic-date-day" class="islamic-day">--</span>
+                        <span id="islamic-date-month" class="islamic-month">--</span>
+                        <span id="islamic-date-year" class="islamic-year">--</span>
+                    </div>
+                    <div id="islamic-date-gregorian" class="gregorian-date-container">
+                        <span class="gregorian-date-text">Loading...</span>
+                    </div>
+                </div>
+                <div id="moon-phase" class="moon-phase">
+                    <div class="moon-phase-container">
+                        <span class="moon-phase-icon">🌒</span>
+                        <span class="moon-phase-name">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="theme-toggle-btn" class="icon-btn" title="Change Theme">
+                <span class="theme-icon">🕌</span>
+            </button>
+            <button id="settings-btn" class="icon-btn" title="Settings">
+                <span class="settings-icon">⚙️</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="prayer-cards">
+                <div class="prayer-card" data-prayer="tahajjud">
+                    <h3>التهجد Tahajjud</h3>
+                    <div class="prayer-time">01:40 AM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="tahajjudQariSelect">Select Qari:</label>
+                        <select id="tahajjudQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="tahajjud">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="tahajjud" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="suhoor">
+                    <h3>السحور Suhoor Ends</h3>
+                    <div class="prayer-time">04:50 AM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="suhoorQariSelect">Select Qari:</label>
+                        <select id="suhoorQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="suhoor">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="suhoor" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card active" data-prayer="fajr">
+                    <h3>الفجر Fajr</h3>
+                    <div class="prayer-time">05:50 AM</div>
+                    <div class="countdown">2h 30m 15s</div>
+                    <div class="qari-select-container">
+                        <label for="fajrQariSelect">Select Qari:</label>
+                        <select id="fajrQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="fajr">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="fajr" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="ishraq">
+                    <h3>الإشراق Ishraq</h3>
+                    <div class="prayer-time">06:19 AM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="ishraqQariSelect">Select Qari:</label>
+                        <select id="ishraqQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="ishraq">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="ishraq" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="dhuhr">
+                    <h3>الظهر Dhuhr</h3>
+                    <div class="prayer-time">12:06 PM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="dhuhrQariSelect">Select Qari:</label>
+                        <select id="dhuhrQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="dhuhr">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="dhuhr" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="asr">
+                    <h3>العصر Asr</h3>
+                    <div class="prayer-time">03:56 PM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="asrQariSelect">Select Qari:</label>
+                        <select id="asrQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="asr">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="asr" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="maghrib">
+                    <h3>المغرب Maghrib</h3>
+                    <div class="prayer-time">06:08 PM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="maghribQariSelect">Select Qari:</label>
+                        <select id="maghribQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="maghrib">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="maghrib" disabled>Stop</button>
+                    </div>
+                </div>
+                
+                <div class="prayer-card" data-prayer="isha">
+                    <h3>العشاء Isha</h3>
+                    <div class="prayer-time">07:37 PM</div>
+                    <div class="countdown"></div>
+                    <div class="qari-select-container">
+                        <label for="ishaQariSelect">Select Qari:</label>
+                        <select id="ishaQariSelect" class="qari-select"></select>
+                    </div>
+                    <div class="adhan-controls">
+                        <button class="play-adhan" data-prayer="isha">Play Adhan</button>
+                        <button class="stop-adhan" data-prayer="isha" disabled>Stop</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Prayer Time Settings</h3>
+                
+                <!-- Calculation Method -->
+                <div class="setting-group">
+                    <label for="calculationMethod">Calculation Method:</label>
+                    <select id="calculationMethod" class="setting-select">
+                        <option value="MuslimWorldLeague">Muslim World League</option>
+                        <option value="Egyptian">Egyptian General Authority</option>
+                        <option value="Karachi">University of Islamic Sciences, Karachi</option>
+                        <option value="UmmAlQura">Umm Al-Qura University, Makkah</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="MoonsightingCommittee">Moonsighting Committee</option>
+                        <option value="NorthAmerica">Islamic Society of North America (ISNA)</option>
+                        <option value="Kuwait">Kuwait</option>
+                        <option value="Qatar">Qatar</option>
+                        <option value="Tehran">Institute of Geophysics, Tehran</option>
+                    </select>
+                </div>
+
+                <!-- Madhab -->
+                <div class="setting-group">
+                    <label>Madhab:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="shafi" name="madhab" value="Shafi" checked>
+                        <label for="shafi">Shafi'i, Maliki, Hanbali</label>
+                        <input type="radio" id="hanafi" name="madhab" value="Hanafi">
+                        <label for="hanafi">Hanafi</label>
+                    </div>
+                </div>
+
+                <!-- API Calculation Toggle -->
+                <div class="setting-group">
+                    <label>Calculation Source:</label>
+                    <div class="toggle-group">
+                        <input type="checkbox" id="useAPI" class="toggle-input" checked>
+                        <label for="useAPI" class="toggle-label">Use API for prayer time calculation</label>
+                        <span class="calculation-source-info">
+                            Current source: <span id="calculationSource" class="source-api">API</span>
+                        </span>
+                    </div>
+                    <div class="setting-description">
+                        When enabled, prayer times are fetched from an online API for greater accuracy.
+                        If disabled or if the API is unavailable, calculation will be done locally.
+                    </div>
+                </div>
+
+                <!-- DST Settings -->
+                <div class="setting-group">
+                    <label>Daylight Saving Time:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="dst-auto" name="dst" value="automatic" checked>
+                        <label for="dst-auto">Automatic</label>
+                        <input type="radio" id="dst-on" name="dst" value="always-on">
+                        <label for="dst-on">Always On</label>
+                        <input type="radio" id="dst-off" name="dst" value="always-off">
+                        <label for="dst-off">Always Off</label>
+                    </div>
+                    <div id="dstStatus" class="dst-status">Daylight Saving Time is not active</div>
+                </div>
+
+                <!-- Prayer Notifications -->
+                <div class="setting-group">
+                    <label>Prayer Time Notifications:</label>
+                    <div class="toggle-group">
+                        <input type="checkbox" id="prayerNotifications" class="toggle-input">
+                        <label for="prayerNotifications" class="toggle-label">Enable Adhan notifications</label>
+                    </div>
+                    <div id="notificationBanner" class="notification-banner" style="display: none;">
+                        Enable notifications to receive Adhan alerts
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Azan Readiness</label>
+                    <div class="readiness-grid">
+                        <div class="readiness-item">
+                            <span class="readiness-label">Audio unlocked</span>
+                            <span id="statusAudio" class="readiness-badge readiness-warn">Checking...</span>
+                        </div>
+                        <div class="readiness-item">
+                            <span class="readiness-label">Notifications</span>
+                            <span id="statusNotifications" class="readiness-badge readiness-warn">Checking...</span>
+                        </div>
+                        <div class="readiness-item">
+                            <span class="readiness-label">Location live</span>
+                            <span id="statusLocation" class="readiness-badge readiness-warn">Checking...</span>
+                        </div>
+                        <div class="readiness-item">
+                            <span class="readiness-label">Next prayer scheduled</span>
+                            <span id="statusSchedule" class="readiness-badge readiness-warn">Checking...</span>
+                        </div>
+                    </div>
+                    <div id="statusSummary" class="setting-description">
+                        Checking Azan readiness...
+                    </div>
+                </div>
+
+                <div class="setting-group" id="adhanSelfTestPanel" style="display: none;">
+                    <label>Adhan Self-Test (Dev)</label>
+                    <div class="adhan-controls">
+                        <button id="selfTestPlayBtn" type="button">Play Test</button>
+                        <button id="selfTestStopBtn" type="button">Stop Test</button>
+                    </div>
+                    <div id="selfTestStatus" class="setting-description">
+                        Hidden by default. Open with <code>?dev=1</code> to verify single-trigger playback.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qibla Compass -->
+            <div class="qibla-compass">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Qibla Direction</h3>
+                <div class="qibla-compass-bg"></div>
+                <div class="compass-arrow"></div>
+                <div class="compass-info">Finding Qibla direction...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Switcher -->
+    <!-- Removed in favor of the theme modal -->
+
+    <!-- Add Adhan Library -->
+    <script src="./assets/js/adhan.js"></script>
+    <script type="module" src="./js/modules/app-init.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+    
+</body>
+</html>
